@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -19,7 +20,7 @@ type templateHandler struct {
 func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	t.once.Do(func() {
 		t.templ =
-			template.Must(template.ParseFiles(filepath.Join("../view/html/",
+			template.Must(template.ParseFiles(filepath.Join("./web/html/",
 				t.filename)))
 	})
 	t.templ.Execute(w, nil)
@@ -28,10 +29,13 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func main() {
 	// root
 	dir, _ := os.Getwd()
-	log.Print(http.Dir(dir + "../view/dist/js/"))
+	fmt.Println(http.Dir(dir + "/web/ts"))
+
 	http.Handle("/", &templateHandler{filename: "index.html"})
-	// http.Handle("../view/dist/js/", http.StripPrefix("../view/dist/js/",
-	// 	http.FileServer(http.Dir(dir+"../view/dist/js/"))))
+
+	// Directory of js files
+	http.Handle("/ts/", http.StripPrefix("/ts/",
+		http.FileServer(http.Dir(dir+"/ts/"))))
 
 	// Start the server
 	if err := http.ListenAndServe(":8080", nil); err != nil {
