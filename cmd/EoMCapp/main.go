@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"runtime"
 	"sync"
 	"text/template"
 )
@@ -27,9 +28,18 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// root
+	// excutable dir
+	ex, _ := os.Executable()
+	fmt.Println(ex)
+
+	// get current directory
 	dir, _ := os.Getwd()
-	fmt.Println(http.Dir(dir + "/web/ts"))
+	fmt.Println(http.Dir(dir))
+
+	// get root dir
+	_, b, _, _ := runtime.Caller(0)
+	basepath := filepath.Dir(b)
+	fmt.Println(basepath)
 
 	http.Handle("/", &templateHandler{filename: "index.html"})
 
