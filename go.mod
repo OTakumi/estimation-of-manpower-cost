@@ -1,4 +1,4 @@
-module EoMC
+module estimation-of-manpower-cost
 
 go 1.17
 

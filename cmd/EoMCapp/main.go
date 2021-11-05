@@ -28,10 +28,6 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// excutable dir
-	ex, _ := os.Executable()
-	fmt.Println(ex)
-
 	// get current directory
 	dir, _ := os.Getwd()
 	fmt.Println(http.Dir(dir))

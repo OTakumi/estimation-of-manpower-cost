@@ -9,8 +9,9 @@
             "request": "launch",
             "type": "go",
             "mode": "auto",
-            "program": "${fileDirname}",
+            "program": "${workspaceFolder}/cmd/EoMCapp/main.go",
             "webRoot": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}",
             "env": {},
             "args": [],
         }
